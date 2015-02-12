@@ -24,7 +24,7 @@
  * @module jazzHands.query.Variable
  */
 define([
-    "../../dojo/_base/declare",
+    "dojo/_base/declare",
     "RdfJs/node/_Node"
 ], function (declare, _Node) {
     /**
@@ -36,6 +36,7 @@ define([
         constructor: function (p) {
             this.symbol = p[0];
             this.nominalValue = p.substr(1);
+            this.interfaceName = "Variable";
         },
         /** @property {String} The original symbol that was used to create this variable */
         symbol: null,
@@ -48,18 +49,25 @@ define([
         /**
          * @override
          */
+        valueOf: function () {
+            return this.nominalValue;
+        },
+        /**
+         * @override
+         */
         toNT: function () {
             return null;
         },
         /**
          * Pulls the variables value from the requested data row
+         * @param {Object} execData
          * @param {jazzHands.query.DataRow} dataRow - The row a value is requested from
          * @return {RdfJs.Node | null}
          */
-        resolve: function (dataRow) {
+        resolve: function (execData, dataRow) {
             var out;
             if (dataRow) {
-                out = dataRow[this.nominalValue];
+                out = dataRow.get(this.nominalValue);
             }
             return out || null;
         }

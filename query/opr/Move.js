@@ -32,6 +32,8 @@ define([
      * @implements jazzHands._QueryPlan
      */
     return declare([Stateful], {
+        /** @property {Boolean} */
+        silent: null,
         /** @property {jazzHands.query.Graph} */
         source: null,
         /** @property {jazzHands.query.Graph} */

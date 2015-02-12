@@ -24,21 +24,18 @@
  * @module jazzHands.query.Graph
  */
 define([
-    "../../dojo/_base/declare",
-    "dojo/_base/lang"
-], function (declare, lang) {
+    "dojo/_base/declare",
+    "dojo/Stateful"
+], function (declare, Stateful) {
     /**
      * @class jazzHands.query.Graph
      * @mixes dojo._base.declare
      */
-    return declare([], {
+    return declare([Stateful], {
         /** @property {String|String[]} Target Graph Names */
         target: null,
         /** @property {RdfJs.TripleStore} - The store being manipulated */
         tripleStore: null,
-        constructor: function (args) {
-            lang.mixin(this, args);
-        },
         /**
          * Adds a Triple to the target Graph
          * @param {RdfJs.Triple} triple - The triple being added
@@ -71,7 +68,7 @@ define([
         },
         /**
          * Returns true if some of the Triples pass the TripleFilter
-         * @param {RdfJs._TripleFilter} tFilter - filter being executed
+         * @param {Function} tFilter - filter being executed
          * @return {Boolean}
          */
         some: function (tFilter) {
@@ -79,7 +76,7 @@ define([
         },
         /**
          * Returns true if every Triple passes the TripleFilter
-         * @param {RdfJs._TripleFilter} tFilter - filter being executed
+         * @param {Function} tFilter - filter being executed
          * @return {Boolean}
          */
         every: function (tFilter) {
@@ -87,7 +84,7 @@ define([
         },
         /**
          * Returns the Triples which pass the TripleFilter
-         * @param {RdfJs._TripleFilter} tFilter - filter being executed
+         * @param {Function} tFilter - filter being executed
          * @return {RdfJs.Graph}
          */
         filter: function (tFilter) {
@@ -95,7 +92,7 @@ define([
         },
         /**
          * Runs the TripleCallback against all Triples in the target Graph(s)
-         * @param {RdfJs._TripleCallback} tCallback - callback being executed
+         * @param {Function} tCallback - callback being executed
          */
         forEach: function (tCallback) {
             this.tripleStore.forEach(tCallback, this.target);

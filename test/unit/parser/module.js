@@ -1,4 +1,4 @@
 define([
-    "./turtle"
+    "./sparql/module"
 ], function () {
 });
